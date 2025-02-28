@@ -1,27 +1,17 @@
 import { LuSunMedium } from "react-icons/lu";
 import { FiPlusCircle } from "react-icons/fi";
+import { MdOutlineDownloadDone } from "react-icons/md";
 import { useState } from "react";
 
 function App() {
   const [todo, setTodo] = useState("")
-  const [todos, setTodos] = useState([
-    {
-      todo: "Help",
-      complete: false,
-      id: Math.floor(Math.random() * 1000)
-    },
-    {
-      todo: "Go for a walk",
-      complete: false,
-      id: Math.floor(Math.random() * 1000)
-    },
-  ])
-
-  const handlerTodo = () => {
+  const [todos, setTodos] = useState([])
+  const handlerAddTodo = () => {
     setTodos([...todos, {todo, complete: false, id: Math.floor(Math.random() * 1000)}])
     setTodo("")
   }
-
+  const handlerRemoveTodo = (id) => {setTodos(todos.filter(todo => todo.id !== id))}
+  
   return (
     <main className="w-full bg-indigo-700 h-full flex justify-center items-center">
       <section className="w-[500px] text-white mt-40">
@@ -31,13 +21,13 @@ function App() {
         </div>
         <div className="flex justify-between items-center gap-10">
           <input type="text" className="w-full bg-slate-800 p-[20px] mb-5 rounded-md" placeholder="Task" value={todo} onChange={(el) => setTodo(el.target.value)}/>
-          <button onClick={handlerTodo}><FiPlusCircle className="text-3xl"/></button>
+          <button onClick={handlerAddTodo}><FiPlusCircle className="text-3xl"/></button>
         </div>
         <div className="w-full bg-slate-800 text-white rounded-md">
             <ul>
               {todos.map((el) => 
               <li className="p-[20px] flex gap-2" key={el.id}>
-                <input type="checkbox" />
+                <button onClick={() => handlerRemoveTodo(el.id)}><MdOutlineDownloadDone className="text-white"/></button>
                 <span>{el.todo}</span>
               </li>
               )}
