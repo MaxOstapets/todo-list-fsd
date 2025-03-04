@@ -1,10 +1,7 @@
 import { create } from "zustand";
 
 export const useTodos = create((set) => ({
-  todos: [
-    {todo: "help someone", complete: false, id: Math.floor(Math.random() * 100)},
-    {todo: "go for a walk", complete: false, id: Math.floor(Math.random() * 100)}
-  ],
+  todos: [],
   addTodo: (todoText) => {
     const newTodo = {
       todo: todoText,
@@ -12,5 +9,10 @@ export const useTodos = create((set) => ({
       id: Math.floor(Math.random() * 100)
     };
     set((state) => ({ todos: [...state.todos, newTodo] }));
+  },
+  removeTodo: () => {
+    set((state) => ({
+      todos: state.todos.filter((todo) => todo.id !== todo.id)
+    }));
   }
 }))

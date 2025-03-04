@@ -7,6 +7,7 @@ import { useTodos } from "./todos-store";
 function App() {
   const todos = useTodos((state) => state.todos)
   const addTodo = useTodos((state) => state.addTodo)
+  const removeTodo = useTodos((state) => state.removeTodo)
   const [todo, setTodo] = useState("")
   const handlerAddTodo = () => {
     addTodo(todo)
@@ -28,7 +29,7 @@ function App() {
           <ul>
             {todos.map((el) =>
               <li className="p-[20px] flex gap-2" key={el.id}>
-                <button><MdOutlineDownloadDone className="text-white" /></button>
+                <button onClick={removeTodo}><MdOutlineDownloadDone className="text-white" /></button>
                 <span>{el.todo}</span>
               </li>
             )}
