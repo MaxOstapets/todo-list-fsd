@@ -6,13 +6,20 @@ export const useTodos = create((set) => ({
     const newTodo = {
       todo: todoText,
       complete: false,
-      id: Math.floor(Math.random() * 100)
+      id: Date.now()
     };
     set((state) => ({ todos: [...state.todos, newTodo] }));
   },
-  removeTodo: () => {
+  removeTodo: (id) => {
     set((state) => ({
-      todos: state.todos.filter((todo) => todo.id !== todo.id)
+      todos: state.todos.filter((todo) => todo.id !== id)
+    }));
+  },
+  toggleTodo: (id) => {
+    set((state) => ({
+      todos: state.todos.map((el) =>
+        el.id === id ? { ...el, complete: !el.complete } : el
+      )
     }));
   }
-}))
+}));
